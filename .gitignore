@@ -129,8 +129,10 @@ dmypy.json
 .pyre/
 
 #Visual Studio Code
-
 .vscode
 
 #json
 user.json
+
+#tempcoderunner
+tempCodeRunnerFile.py
