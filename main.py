@@ -58,7 +58,5 @@ async def says(ctx, channel_id: int, *, message: str):
   await channel.send(message)
 
 
-# keep_alive()
-
 TOKEN = os.getenv("TOKEN")
 bot.run(TOKEN)

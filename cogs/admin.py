@@ -66,10 +66,11 @@ class Admin(commands.Cog):
       await ctx.reply("Power kamu tidak cukup untuk memerintah ku")
 
 
-bad_words_file = "kasar.json"
+bad_words=[
+  "Anjing"
+]
 
-with open(bad_words_file, "r") as f:
-  bad_words = json.load(f)
+
 
 
 class Warning(commands.Cog):
@@ -91,7 +92,7 @@ class Warning(commands.Cog):
         else:
           self.warnings[message.author.id] += 1
 
-        with open("data.json", "w") as f:
+        with open("user.json", "w") as f:
           json.dump(self.warnings, f)
 
         if self.warnings[message.author.id] == 3:
@@ -101,7 +102,7 @@ class Warning(commands.Cog):
             f"{message.author.mention} telah di mute karena telah mencapai jumlah warning yang ditentukan"
           )
           self.warnings[message.author.id] = 0
-          with open("data.json", "w") as f:
+          with open("user.json", "w") as f:
             json.dump(self.warnings, f)
         else:
           await message.channel.send(
@@ -117,7 +118,7 @@ class Warning(commands.Cog):
       else:
         self.warnings[member.id] += 1
 
-      with open("data.json", "w") as f:
+      with open("user.json", "w") as f:
         json.dump(self.warnings, f)
 
       if self.warnings[member.id] == 3:
@@ -127,7 +128,7 @@ class Warning(commands.Cog):
           f"{member.mention} telah di mute karena telah mencapai jumlah warning yang ditentukan"
         )
         self.warnings[member.id] = 0
-        with open("data.json", "w") as f:
+        with open("user.json", "w") as f:
           json.dump(self.warnings, f)
       else:
         await ctx.send(
@@ -144,7 +145,7 @@ class Warning(commands.Cog):
         await ctx.reply(f"{member.name} tidak ada dalam daftar warning.")
       else:
         self.warnings[member.id] = 0
-        with open("data.json", "w") as f:
+        with open("user.json", "w") as f:
           json.dump(self.warnings, f)
           await ctx.reply(f"Semua warning dari {member.name} telah dihapus.")
     else:
@@ -153,27 +154,27 @@ class Warning(commands.Cog):
 
 ##add badword
 
-    @commands.command()
-    async def add_bad_word(self, ctx, word):
-      if ctx.author.id == OWNER_ID:
-        bad_words.append(word)
-        with open(bad_words_file, "w") as f:
-          json.dump(bad_words, f)
-        await ctx.send('Kata telah ditambahkan ke daftar kata kasar.')
-      else:
-        await ctx.reply("NT kamu tidak bisa memerintah ku.")
+    # @commands.command()
+    # async def add_bad_word(self, ctx, word):
+    #   if ctx.author.id == OWNER_ID:
+    #     bad_words.append(word)
+    #     with open(bad_words_file, "w") as f:
+    #       json.dump(bad_words, f)
+    #     await ctx.send('Kata telah ditambahkan ke daftar kata kasar.')
+    #   else:
+    #     await ctx.reply("NT kamu tidak bisa memerintah ku.")
 
-    #delete badword
-    @commands.command()
-    async def remove_bad_word(self, ctx, word):
-      if ctx.author.id == OWNER_ID:
-        bad_words.append(word)
-        bad_words.remove(word)
-        with open(bad_words_file, "w") as f:
-          json.dump(bad_words, f)
-        await ctx.send(f'Kata {word} telah dihapus dari daftar kata kasar.')
-      else:
-        await ctx.reply("NT kamu tidak bisa memerintah ku.")
+    # #delete badword
+    # @commands.command()
+    # async def remove_bad_word(self, ctx, word):
+    #   if ctx.author.id == OWNER_ID:
+    #     bad_words.append(word)
+    #     bad_words.remove(word)
+    #     with open(bad_words_file, "w") as f:
+    #       json.dump(bad_words, f)
+    #     await ctx.send(f'Kata {word} telah dihapus dari daftar kata kasar.')
+    #   else:
+    #     await ctx.reply("NT kamu tidak bisa memerintah ku.")
 
 
 async def setup(bot):
